@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 50PX;
+            height: 50PX;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <p id="time"></p>
+    <img src="../img3/0.jpg" alt="">
+    <img src="../img3/0.jpg" alt="">
+    <img src="../img3/0.jpg" alt="">
+    <img src="../img3/0.jpg" alt="">
+    <img src="../img3/0.jpg" alt="">
+    <img src="../img3/0.jpg" alt="">
+    <script>
+        var op = document.getElementById("time")
+        var span = document.querySelectorAll('span');
+        setInterval(myTime, 1000)
+        function myTime() {
+
+            let myTime = new Date();
+            let iHours = myTime.getHours();
+            let iMin = myTime.getMinutes();
+            let iSec = myTime.getSeconds();
+            //console.log(iSec);
+            //let str = '';
+            str = toTwo(iHours) + toTwo(iMin) + toTwo(iSec);
+            op.innerHTML = str;
+            console.log(str.charAt(5))
+            img[5].src = '../img3/' + str.charAt(5) + '.jpg'
+
+        }
+        myTime()
+        function toTwo(n) {
+            return n < 10 ? '0' + n : '' + n;
+        }
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

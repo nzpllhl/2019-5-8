@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            width: 400px;
+            height: 200px;
+            border: 1px solid pink;
+
+        }
+
+        #box div {
+            display: none;
+        }
+
+        .active {
+            background: yellow;
+        }
+
+        #box .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="按钮1" class="active">
+    <input type="button" value="按钮2">
+    <input type="button" value="按钮3">
+    <input type="button" value="按钮4">
+    <div id="box">
+        <div class="show">111</div>
+        <div>222</div>
+        <div>333</div>
+        <div>444</div>
+    </div>
+    <script>
+        const btns = document.querySelectorAll('input')
+        const box = document.getElementById('box')
+        const divs = box.getElementsByTagName('div')
+
+        //双循环法
+        // for (let i = 0; i < btns.length; i++) {
+        //     btns[i].index = i;
+        //     btns[i].onclick = function () {
+        //         for (let j = 0; j < btns.length; j++) {
+        //             btns[j].className = '';
+        //             divs[j].className = '';
+        //         }
+        //         this.className = 'active';
+        //         divs[this.index].className = 'show';
+        //     }
+        // }
+
+        //大清洗
+
+        let btn = btns[0];
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].index = 0;
+            btns[i].onclick = function () {
+                btn.className = '';
+                divs[btn.index].className = '';
+                this.className = 'active';
+                divs[i].className = 'show';
+                btn = this;
+
+
+            }
+        }
+        // let li = alis[0];//第一个里
+        // for (let i = 0; i < alis.length; i++) {
+        //     alis[i].index = i;//给每一个li增加自定义属性的索引
+        //     alis[i].onclick = function () {
+        //         //当前的li清空
+        //         li.className = '';
+        //         divs[li.index].className = '';//当前的div清空
+        //         this.className = 'active'; //把当前的class加上
+        //         divs[i].className = 'show';//当前的class加上
+        //         li = this //把当前的按钮变成下一次的上一个
+        //     }
+        // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // alert(a)
+        // var a = 1
+        // alert(a) //1
+        // function a() { alert(2) }
+        // alert(a) //1
+        // var a = 3;
+        // alert(a) //3
+        // function a() { alert(4) }
+        // alert(a) //3
+
+        // a();//报错啊不是一个函数
+        //变量和函数重名只会走函数，函数优先级高
+        //函数重名只会走最后一个函数，会把前面的覆盖了
+        // var abtn = document.querySelectorAll('input');
+        // for (let i = 0; i < abtn.length; i++) {
+        //     //abtn[i].index = i
+        //     abtn[i].onclick = function () {
+        //         for (let i = 0; i < abtn.length; i++) {
+        //             abtn[i].style.background = 'pink'
+        //         }
+
+        //     }
+
+
+        // }
+
+
+
+
+
+
+
+
+
+
+        var str = '';
+        function fn() {
+            var a = '大大泡泡糖';
+            str = a
+        }
+        fn();
+        // alert(str)
+        function fn1() {
+            var b = '99999999克拉钻戒'
+            fn2(b)
+        }
+        fn1()
+
+        function fn2(c) {
+            //alert(c)
+        }
+
+        function fn() {
+
+        }
+
+    </script>
+</body>
+
+</html>

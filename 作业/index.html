@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>练习用网页</title>
+	<script src="js/html5shiv.js"></script>
+	<script src="js/ie6png.js"></script>
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/index.css">
+	<link rel="stylesheet" href="font/iconfont.css">
+	<link rel="shortcut icon" href="">
+	<style type="text/css">
+		div{width: 20px;height: 20px;border: 1px solid #f1f1f1;float: left;}
+		ul{margin: 20px;}
+	</style>
+	<!--[if IE]>
+	<script src="js/DD_belatedPNG_0.0.8a.js"></script>
+	<script>
+	DD_belatedPNG.fix('*');
+	</script>
+	<![endif]-->
+</head>
+<body>
+	<ul class="clearfix">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<p id="p" style='border: 0;margin-left: 20px;width: 70px;'></p>
+	</ul>
+	<ul class="clearfix">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<p id="p" style='border: 0;margin-left: 20px;width: 70px;'></p>
+	</ul>
+	<ul class="clearfix">
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<div></div>
+		<p id="p" style='border: 0;margin-left: 20px;width: 70px;'></p>
+	</ul>
+
+<script src="js/jquery.js"></script>
+<script src="js/dragon.js"></script>
+<script type="text/javascript">
+var aUl=document.getElementsByTagName('ul');
+for(var i=0;i<aUl.length;i++){
+	score(aUl[i]);
+}
+function score(oUl){
+	var arr=['很差','还行','一般','很好','完美'];
+	var aDiv=oUl.getElementsByTagName('div');
+	var oP=oUl.getElementsByTagName('p')[0];
+	oP.innerHTML='请评分';
+	var a=0;
+	var b=0;
+	for(var i=0;i<aDiv.length;i++){
+		aDiv[i].index=i+1;
+		aDiv[i].onmouseover=function(){
+			a=this.index;
+			show(aDiv,oP,a,arr);
+		}
+		aDiv[i].onclick=function(){
+			b=this.index;
+		}
+		aDiv[i].onmouseout=function(){
+			a=b;
+			show(aDiv,oP,a,arr);
+			if(b==0){
+				for(var i=0;i<aDiv.length;i++){
+					oP.innerHTML='请评分';
+				}
+			}
+		}
+	}
+}
+function show(aDiv,oP,a,arr){
+	for(var i=0;i<aDiv.length;i++){
+		aDiv[i].style.background='';
+	}
+	if(a<=2){
+		for(var i=0;i<a;i++){
+			aDiv[i].style.background='gray';
+			oP.innerHTML=arr[a-1];
+		}
+	}else{
+		for(var i=0;i<a;i++){
+			aDiv[i].style.background='orange';
+			oP.innerHTML=arr[a-1];
+		}
+	}
+}
+</script>
+</body>
+</html>

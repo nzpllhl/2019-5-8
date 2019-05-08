@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<title>随机滚动</title>
+	<style type="text/css">
+		#box{
+			width: 500px;height: 650px;margin: 20px auto;padding: 10px;
+		}
+		ul{
+			width: 500px;height: 650px;margin: 0;padding: 0;
+		}
+		ul li{
+			width: 200px;height: 200px; overflow: hidden;list-style: none;float: left;margin: 10px;position: relative;
+		}
+		ul li img{
+			width: 200px;height: 200px; display: block; margin: 0;padding: 0;position: absolute;
+		}
+		ul li img:nth-of-type(2){top: 200px;}
+	</style>
+	<script src="doMove.js"></script>
+	<script type="text/javascript">
+		window.onload=function(){
+			var box=document.getElementById('box');
+			var oul=box.getElementsByTagName('ul')[0];
+			var ali=oul.getElementsByTagName('li');
+			var arr=[];
+			var n;
+			var timer=null;
+			for(var i=0;i<ali.length;i++){
+				arr.push(i);
+				ali[i].onOff=true;
+			}
+			timer=setInterval(play,1500);
+			function play(){
+				n=Math.round(Math.random()*(arr.length-1));
+				for(var j=0;j<n;j++){
+					run(ali[Math.round(Math.random()*(arr.length-1))]);
+				}
+				
+			}
+			function run(obb){
+				var img=obb.getElementsByTagName('img');
+				console.log(img.length);
+				if(obb.onOff){
+					doMove(img[0],'top',10,-200);
+					doMove(img[1],'top',10,0);
+					obb.onOff=false;
+				}else{
+					doMove(img[0],'top',10,0);
+					doMove(img[1],'top',10,200);
+					obb.onOff=true;
+				}
+				
+			}
+		}
+	</script>
+</head>
+<body style="background: #DCDCDC">
+	<div id="box">
+		<ul>
+			<li><img src="image/1.jpg"><img src="image/2.jpg"></li>
+			<li><img src="image/3.jpg"><img src="image/4.jpg"></li>
+			<li><img src="image/5.jpg"><img src="image/6.jpg"></li>
+			<li><img src="image/7.jpg"><img src="image/8.jpg"></li>
+			<li><img src="image/9.jpg"><img src="image/10.jpg"></li>
+			<li><img src="image/11.jpg"><img src="image/12.jpg"></li>
+		</ul>
+	</div>
+</body>
+</html>

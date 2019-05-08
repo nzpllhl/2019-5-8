@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button>点我0</button>
+    <button>点我0</button>
+    <button>点我0</button>
+    <input type="button" value="0">
+    <input type="button" value="0">
+    <input type="button" value="0">
+    <input type="button" value="0">
+
+    <script>
+        // let btns = document.getElementsByTagName('button');
+        // console.log(btns);
+        // for (let i = 0; i < btns.length; i++) {
+        //     btns[i].num = 0;
+        //     btns[i].onclick = function () {
+        //         console.log(122);
+        //         btns[i].innerHTML = this.num++;
+        //     }
+        // }
+        // let btns = document.getElementsByTagName('button');
+        // for (let i = 0; i < btns.length; i++) {
+        //     btns[i].num = 0;
+        //     btns[i].onclick = function () {
+        //         btns[i].innerHTML = this.num++;
+        //     }
+        // }
+
+
+        let inps = document.querySelectorAll('input');
+        let arr = ['A', 'B', 'C', 'D']
+        for (let i = 0; i < inps.length; i++) {
+            inps[i].num = 0;
+            inps[i].onclick = function () {
+                this.value = arr[this.num]
+                this.num++;
+                if (this.num === arr.length) {
+                    this.num = 0
+                }
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

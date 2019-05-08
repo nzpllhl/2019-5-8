@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .red {
+            width: 300px;
+            height: 300px;
+            background: red;
+            color: salmon;
+        }
+
+        .yellow {
+            width: 500px;
+            height: 500px;
+            background: yellow;
+            color: salmon;
+
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" value="-">
+    <input type="button" value="+">
+    <input type="button" value="红色">
+    <input type="button" value="黄色">
+    <p>属于80后的玩游戏黄金年纪已经慢慢逝去，想必各大90玩家们都开始踏进工作和社会上的浮躁，甚至有的已经成家立业了，如今在快节奏娱乐方式和年纪和当年的自己格格不入，碎片化的时间对游戏的热爱痴迷程度往往不如当.
+    </p>
+    <script>
+        let btn = document.querySelectorAll('input');
+        let p = document.getElementsByTagName('p')[0];
+        let num = 15
+        btn[0].onclick = function () {
+            console.log(btn[0]);
+            //num小于 
+            if (num > 12) {
+                num--;
+                p.style.fontSize = num + 'px';
+            }
+        }
+        btn[1].onclick = function () {
+            //num小于22就一直加
+            if (num < 22) {
+                num++;
+                p.style.fontSize = num + 'px';
+
+            }
+        }
+
+        btn[2].onclick = function () {
+            p.className = 'red'
+            console.log(btn[2]);
+
+        }
+
+        btn[3].onclick = function () {
+            p.className = 'yellow'
+
+        }
+
+
+
+
+
+
+
+
+    </script>
+</body>
+
+</html>

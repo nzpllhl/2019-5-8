@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #list ul {
+            display: none;
+            list-style: none;
+        }
+
+        #list ul li {
+            text-indent: 24px;
+        }
+
+        #list ul .hove {
+            background: yellow;
+        }
+
+        #list {
+            width: 200px;
+            margin: 0 auto;
+        }
+
+
+
+        .active {
+            background: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="list">
+        <li class="lis">
+            <h2>我的好友</h2>
+            <ul>
+                <li>123</li>
+                <li>123</li>
+                <li>123</li>
+                <li>123</li>
+                <li>123</li>
+            </ul>
+        </li>
+        <li class="lis">
+
+            <h2>我的好友</h2>
+            <ul>
+                <li>123</li>
+                <li>123</li>
+                <li>123</li>
+                <li>123</li>
+                <li>123</li>
+            </ul>
+        </li>
+        <li class="lis">
+            <h2>企业好友</h2>
+            <ul>
+                <li>李四</li>
+                <li>123</li>
+                <li>123</li>
+                <li>123</li>
+                <li>123</li>
+            </ul>
+        </li>
+        <li class="lis">
+            <h2>黑名单</h2>
+            <ul>
+                <li class="hove">123</li>
+                <li>123</li>
+                <li>123</li>
+                <li>123</li>
+                <li>123</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+<script>
+    let list = document.getElementById('list')
+    let h2 = list.getElementsByTagName('h2')
+    let ul = list.getElementsByTagName('ul');
+    var li = null;
+    var arrli = [];
+
+    for (var i = 0; i < h2.length; i++) {
+        h2[i].index = i
+        h2[i].onclick = function () {
+            console.log(4567);
+            if (this.className === '') {
+                ul[this.index].style.display = 'block';
+                this.className = 'active';
+            } else {
+                ul[this.index].style.display = 'none';
+                this.className = '';
+            }
+        }
+
+    }
+
+    for (var i = 0; i < ul.length; i++) {
+        ali = ul[i].getElementsByTagName('li');
+        console.log(ali);
+        for (var j = 0; j < ali.length; j++) {
+            arrli.push(ali[j])
+        }
+    }
+
+    console.log(arrli);
+    for (var i = 0; i < arrli.length; i++) {
+        arrli[i].onclick = function () {
+            for (var j = 0; j < arrli.length; j++) {
+                arrli[j].className = '';
+            }
+            this.className = 'hove';
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</html>

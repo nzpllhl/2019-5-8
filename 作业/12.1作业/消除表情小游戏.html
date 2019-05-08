@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<title>消除表情小游戏</title>
+	<link rel="stylesheet" type="text/css" href="layui.css">
+	<script src="doMove.js"></script>
+	<style type="text/css">
+		#top{
+			margin: 10px;padding: 5px;text-align: center;
+		}
+		#top h2{
+			font-weight: bold;font-size: 2em; line-height: 40px;text-align: center; margin-bottom: 10px;
+		}
+		#top p{
+			font-size: 18px; line-height: 30px;text-align: center;margin-bottom: 10px;
+		}
+		#top input{
+			width: 100px;height: 40px;font-size: 16px;
+		}
+		#box{
+			width: 800px;margin: 0 auto; padding: 0;position: relative;
+		}
+		#content{
+			width: 800px;height: 550px;border: 1px dotted blue; margin: 0 auto; background: #fff;position:relative;top: 0;left: 0; 
+		}
+		#section{
+			width: 150px;height: 80px;padding: 10px;background:#FFC;border: 1px solid #066;position:absolute; top: 0px;left:-172px; border-right: none;
+		}
+		#section p{
+			height: 40px;line-height: 40px;text-align: center;margin: 0;padding: 0;font-size: 18px;font-family: 微软雅黑；
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var top=document.getElementById('top');
+			var start=top.getElementsByTagName('input')[0];
+			var box=document.getElementById('box');
+			var content=document.getElementById('content');
+			var arrimg=['img/1.png','img/2.png','img/3.png','img/4.png','img/5.png','img/6.png','img/7.png','img/8.png','img/9.png','img/10.png','img/11.png'];
+			var width=parseInt(getStyle(content,'width'));
+			var height=parseInt(getStyle(content,'height'));
+			var aimg=box.getElementsByTagName('img');
+			var onOff=false;
+			var num=1;
+			var socre=0;
+			var deathSocre=0;
+			var section=document.getElementById('section');
+			var span1=section.getElementsByTagName('span')[0];
+			var span2=section.getElementsByTagName('span')[1];
+			start.onclick=function(){
+				game();
+			}
+			function game(){
+				var x=Math.round(Math.random()*(width-24));
+				var n=Math.round(Math.random()*(arrimg.length-1));
+				start.disabled=true;
+				start.value='游戏进行中...';
+				start.className='layui-btn-disabled';
+				content.innerHTML='<img style="top:0px;position:absolute;opacity:1;left:'+x+'px;" src="'+arrimg[n]+'"/>';
+				doMove(aimg[0],'top',num,555,function(){
+					console.log(deathSocre);
+					deathSocre=deathSocre+1;
+					span2.innerHTML=deathSocre;
+					if(deathSocre<10){
+						shake(content,'top');
+						game();
+					}else{
+						content.innerHTML='';
+						num=1;
+						deathSocre=0;
+						socre=0;
+						span2.innerHTML=deathSocre;
+						span1.innerHTML=socre;
+						alert("游戏结束,再来一局吧！");
+						start.disabled=false;
+						start.value='开始游戏';
+						start.className='layui-btn layui-btn-sm layui-bg-green';
+					}
+				});
+				aimg[0].onmousedown=function(){
+					clearInterval(this.shaker);
+					socre=socre+1;
+					this.src='img/qq.png';
+					shake(this,'left',function(){
+						span1.innerHTML=socre;
+						num++;
+						game();
+					});
+
+				}
+			}
+			//抖动函数
+			function shake(obj,attr,endFn){
+				var arr=[];
+				obj.shaker=null;
+				var num=0;
+				for(var i=20;i>0;i-=2){
+					arr.push(i,-i);
+				}
+				arr.push(0);
+				// alert(arr);
+				clearTimeout(obj.shaker);
+				obj.shaker=setInterval(function(){
+					obj.style[attr]=parseInt(getStyle(obj,attr))+arr[num]+'px';
+					num++;
+					if(num==arr.length){
+						clearTimeout(obj.shaker);
+						num=0;
+						endFn&&endFn();
+					}
+				},30)
+				
+			}
+		}
+	</script>	
+</head>
+<body style="background: #DCDCDC">
+	<div id="top">
+		<h2>你的鼠标有多快？</h2>
+		<p>游戏说明：点击“开始游戏”，随机掉下QQ表情，点中它，千万别让它掉下去！！</p>
+		<input type="button" name="" value="开始游戏" class="layui-btn layui-btn-sm layui-bg-green">
+		
+	</div>
+	<div id="box">
+		<div id="section">
+			<p>得分：<span>0</span> 分</p>
+			<p>失分：<span>0</span> 分</p>
+		</div>
+		<div id="content">	
+		</div>
+	</div>
+</body>
+</html>

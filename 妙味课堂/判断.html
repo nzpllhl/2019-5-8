@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="btn">开灯</button>
+    <img src="./img/1.jpg" alt="" id="img">
+    <script>
+        /*
+        所有的相对路劲地址都不能拿来做判断
+        如：href = '1.css' href="html/index.html"
+        绝对路径
+        img.src = 'http://www.miaowei.com'
+        
+        颜色值也不要拿来做判断
+
+        innerHTML 值也不要拿来做判断
+
+        需要用布尔值来判断
+        
+        */
+        let flag = true;
+        let body = document.body
+        btn.onclick = function () {
+            if (flag) {
+                body.style.background = '#000';
+                btn.innerHTML = '开灯'
+                flag = false;
+            } else {
+                body.style.background = 'pink';
+                btn.innerHTML = "关灯"
+                flag = true
+            }
+        }
+        let onOff = true
+        img.onclick = function () {
+            if (onOff) {
+                img.src = './img/3.jpg'
+                onOff = false
+            } else {
+                img.src = './img/1.jpg'
+                onOff = true
+            }
+        }
+        /*
+
+        */
+
+
+    </script>
+</body>
+
+</html>

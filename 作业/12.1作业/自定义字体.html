@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<title>自定义字体</title>
+	<style type="text/css">
+		#box{
+			width: 600px;height: 510px;margin: 40px auto; border: 1px solid blue;background: #DCDCDC;padding: 10px;
+		}
+		#top{
+			width: 580px;height: 200px; background:#fff;margin: 0;padding: 10px;
+		}
+		select{
+			height: 25px;margin: 10px 0;
+		}
+		textarea{
+			width: 579px;height: 200px; background: #fff;padding: 10px;
+		}
+		span {float: left;line-height: 30px;text-align: center;}
+		.ball{width: 30px;height: 60px;background-repeat: no-repeat;background-position: center 0;}
+		.ba1 {background-image: url(image/ba1.gif)}
+		.ba2 {background-image: url(image/ba2.gif)}
+		.ba3 {background-image: url(image/ba3.gif)}
+		.ba4 {background-image: url(image/ba4.gif)}
+		.ba5 {background-image: url(image/ba5.gif)}
+		.ba6 {background-image: url(image/ba6.gif)}
+		.love {width: 26px;height: 40px;background: url(image/qq2.png) no-repeat center 20px;}
+		.cool {width: 26px;height: 48px;background: url(image/qq4.png) no-repeat center 24px;}
+		.sun {width: 26px;height: 48px;background: url(image/qq3.png) no-repeat center 24px;}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var top=document.getElementById('top');
+			var select=document.getElementsByTagName('select')[0];
+			var textarea=document.getElementsByTagName('textarea')[0];
+			var abutton=document.getElementById('confirm');
+
+			var json={
+				'balloon':['ba1','ba2','ba3','ba4','ba5','ba6'],
+				'love':'love',
+				'cool':'cool',
+				'sun':'sun'
+			}
+
+			abutton.onclick=function(){
+				if(textarea.value){
+					top.innerHTML='';
+					var arr=textarea.value.split('');
+					var style=json[select.value];//select.value的值已经是string类型的了,所以这不用加引号
+					if(select.value=='balloon'){
+						console.log(typeof(select.value)); //select.value的值已经是string类型的了
+						for(var i=0;i<arr.length;i++){
+							top.innerHTML+='<span class="ball '+style[i%style.length]+'">'+arr[i]+'</span>';
+						}
+					}else{
+						console.log(style);
+						for(var i=0;i<arr.length;i++){
+							top.innerHTML+='<span class="'+style+'">'+arr[i]+'</span>';
+						}
+					}
+					
+				}else{
+					alert("输入内容不能为空!");
+				}
+			}
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<div id="top">
+		</div>
+		<select>
+			<option value="balloon">气球字体</option>
+			<option value="love">爱心字体</option>
+			<option value="cool">大兵字体</option>
+			<option value="sun">太阳字体</option>
+		</select>
+		<textarea></textarea>
+		<input type="button" name="" value="确定" id="confirm">
+	</div>
+</body>
+</html>

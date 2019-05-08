@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title></title>
+    <style>
+        body {
+            background: #f1f1f1;
+            font-family: "微软雅黑";
+        }
+
+        ul {
+            margin: 5px 0 0 0;
+            padding: 0;
+            list-style: none;
+            width: 300px;
+            background: #f1f1f1;
+        }
+
+        li {
+            border-left: 1px solid #fff;
+            border-bottom: 1px solid #999;
+            border-top: 1px solid #fff;
+            border-right: 1px solid #ccc;
+            line-height: 28px;
+            text-indent: 20px;
+            font-family: arial;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 3px;
+            color: #6f6f7a;
+            transition: 0.3s;
+        }
+
+        li:hover {
+            border-right: 1px solid #fff;
+            border-top: 1px solid #999;
+            border-bottom: 1px solid #fff;
+            border-left: 1px solid #999;
+            background: #6e697a;
+            color: #fff;
+        }
+
+        img {
+            width: 400px;
+            position: absolute;
+            top: 33px;
+            left: 309px;
+            display: none;
+            border-radius: 8px;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <input id="btn1" type="button" value="添加" />
+    <input id="btn2" type="button" value="减少" />
+    不需要使用DOM创建、删除方法，不需要使用索引值，完成练习。
+    <ul id="ul1">
+
+    </ul>
+    <img id="img1" src="img/mm1.jpg" />
+    <script type="text/javascript">
+        /*
+        1.把图片动态想染到页面上。
+        2.点击按钮让图片加加，减减
+        
+        */
+        let arr = ['img/mm1.jpg', 'img/mm2.jpg', 'img/zs1.jpg', 'img/zs2.jpg', 'img/zs3.jpg', 'img/zs4.jpg']
+        // let html = '';
+        // let num = 0;
+        // let lis = document.getElementsByTagName('li');
+
+        // btn1.onclick = function () {
+        //     if (num < arr.length) {
+        //         html += '<li>' + arr[num] + '</li>';
+        //         num++;
+        //         ul1.innerHTML = html;
+        //         events();
+        //     }
+        // }
+        // function events() {
+        //     for (var i = 0; i < lis.length; i++) {
+        //         lis[i].onclick = function () {
+        //             img1.style.display = 'block';
+        //             img1.src = this.innerHTML;
+        //         }
+        //     }
+        // }
+        // //减等是不行只能用加等
+        // btn2.onclick = function () {
+        //     // console.log(num);
+        //     html = '';
+        //     num--;
+        //     if (num <= 0) {
+        //         ul1.innerHTML = '';
+        //         img1.style.display = 'none';
+        //     } else {
+        //         for (var i = 0; i < num; i++) {
+        //             html += '<li>' + arr[i] + '</li>';
+        //         }
+        //         ul1.innerHTML = html;
+        //         /*
+        //             num 3 num = 2
+        //             把最后一张图片给img1.src
+        //         */
+        //         img1.src = arr[num - 1];
+        //         //添加事件
+        //         events();
+        //     }
+        // }
+
+
+        //初始化第一遍
+        // let str = '';
+        // let num = 0;
+        // //获取里集合
+        // let lis = document.getElementsByTagName('li')
+        // //点击btn1的时候添加
+        // console.log(lis);
+        // btn1.onclick = function () {
+        //     //点击的时候如果num小于arr的长度,
+        //     //就让动态添加到页面，点一个添加一个
+        //     if (num < arr.length) {
+        //         str += '<li>' + arr[num] + '</li>';
+        //         num++;
+        //         ul1.innerHTML = str;
+        //         events();
+        //     }
+        // }
+
+        // //点击btn2的时候让数组里的图片--
+        // btn2.onclick = function () {
+        //     //把之前的清空，让num--
+        //     console.log(num);
+        //     str = '';
+        //     num--;
+        //     //如果num < 0 的时候让ul1的innerHTML清空
+        //     if (num < 0) {
+        //         ul1.innerHTML = '';
+        //         img1.style.display = 'none';
+        //         //否则就循环每一张图片
+        //     } else {
+        //         for (var i = 0; i < num; i++) {
+        //             str += '<li>' + arr[i] + '</li>'
+        //         }
+        //         ul1.innerHTML = str;
+        //         img1.src = arr[num - 1];
+        //         events();
+        //     }
+
+        // }
+        // function events() {
+        //     for (var i = 0; i < lis.length; i++) {
+        //         lis[i].onclick = function () {
+        //             img1.style.display = 'block';
+        //             img1.src = this.innerHTML;
+        //         }
+        //     }
+        // }
+
+        //第二遍
+        let str = '';
+        let num = 0;
+        //获取里集合
+        let lis = document.getElementsByTagName('li')
+        //点击btn1的时候添加
+        console.log(lis);
+        btn1.onclick = function () {
+            //点击的时候如果num小于arr的长度,
+            //就让动态添加到页面，点一个添加一个
+            if (num < arr.length) {
+                str += '<li>' + arr[num] + '</li>';
+                num++;
+                ul1.innerHTML = str;
+                events();
+            }
+        }
+
+        //点击btn2的时候让li--
+        btn2.onclick = function () {
+            //先把str清空
+            str = '';
+            //让num--
+            num--;
+            //如果num小于0的时候要么清空
+            if (num < 0) {
+                ul1.innerHTML = '';
+                img1.style.display = 'none';
+                //else 循环 num 
+            } else {
+                for (var i = 0; i < num; i++) {
+                    str += '<li>' + arr[num] + '</li>'
+                }
+                ul1.innerHTML = str;
+                img1.src = arr[num - 1];
+                events();
+            }
+        }
+        //添加点击事件
+        function events() {
+            //点击每一个li的时候让点击的li显示img的innerHTML = 点击的张数
+            for (var i = 0; i < lis.length; i++) {
+                lis[i].onclick = function () {
+                    img1.style.display = 'block';
+                    img1.innerHTML = this.innerhTML;
+                }
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>

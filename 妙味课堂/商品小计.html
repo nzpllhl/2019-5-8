@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul id="list">
+        <li>
+            <input type="button" value="-">
+            <strong>0</strong>
+            <input type="button" value="+">
+            单价:<em>8.5元</em>
+            小计：<span>0元</span>
+        </li>
+        <li>
+            <input type="button" value="-">
+            <strong>0</strong>
+            <input type="button" value="+">
+            单价:<em>10.5元</em>
+            小计：<span>0元</span>
+        </li>
+        <li>
+            <input type="button" value="-">
+            <strong>0</strong>
+            <input type="button" value="+">
+            单价:<em>5.5元</em>
+            小计：<span>0元</span>
+        </li>
+        <li>
+            <input type="button" value="-">
+            <strong>0</strong>
+            <input type="button" value="+">
+            单价:<em>20.5元</em>
+            小计：<span>0元</span>
+        </li>
+    </ul>
+    <p id="p">商品共计:0件，共花了：0元<br />
+        最贵的商品单价：0元
+    </p>
+
+    <script>
+        //获取元素通过父级选取子元素
+        let oUl = document.getElementById('list');
+        let aLi = oUl.getElementsByTagName('li');//父元素下的所有li
+        let strongs = oUl.getElementsByTagName('strong');//父元素下的srtong 个数
+        let ems = oUl.getElementsByTagName('em');//父元ems 小计
+
+        let sum = 0;//几件
+        let total = 0;//共计
+        let maxNum = -1;//最贵
+
+
+        console.log(aLi);
+        fn(aLi[0])//第一个li是父级
+        function fn(oLi) {
+            //找到li是父级下的所有子元素
+            let btn = oLi.getElementsByTagName('input');//要点击的 - + 
+            let strong = oLi.getElementsByTagName('strong')[0];//个数
+            let em = oLi.getElementsByTagName('em')[0];//单价
+            let span = oLi.getElementsByTagName('span')[0];//小计
+
+            //因为价格会变所以动态获取,因为获取到的是字符串所以转成数字
+            let num = Number(strong.innerHTML); //获取到是字符串'0';个数
+            let num2 = parseFloat(em.innerHTML); //'12.5' 单价
+            //点击计算--
+            btn[0].onclick = function () {
+                num--;
+                sum = 0;
+                if (num < 0) {
+                    num = 0;
+                }
+                strong.innerHTML = num;//获取商品的个数
+                span.innerHTML = num * num2 + '元';//个数*单价等于小计
+                let arr = [];//准备一个空数组
+                for (let i = 0; i < strongs.length; i++) {
+                    sum += strongs[i].innerHTML * 1;
+                    if (strongs[i].innerHTML * 1) {//看看购买个数是否为0，不为0就进if
+                        arr.push(parseFloat(ems[i].innerHTML))
+                    }
+                }
+
+                console.log(Math.max(...arr));
+
+                p.innerHTML = `商品共计:${sum}件，共花了：0元<br />
+        最贵的商品单价：${Math.max(...arr)}元`
+            }
+            //点击++
+            btn[1].onclick = function () {
+                total = 0;
+                sum = 0;
+                num++;
+                strong.innerHTML = num;
+                span.innerHTML = num * num2 + '元';
+
+                let arr = [];
+                for (let i = 0; i < strongs.length; i++) {
+                    sum += strongs[i].innerHTML * 1;
+
+                    if (strongs[i].innerHTML * 1) {//看看购买个数是否为0，不为0就进if
+                        arr.push(parseFloat(ems[i].innerHTML))//把不为0的push到数组中
+                    }
+                }
+
+                console.log(Math.max(...arr));//取出数组中的最大值
+                p.innerHTML = `商品共计:${sum}件，共花了：${total}元<br />
+                最贵的商品单价：${Math.max(...arr)}元`
+            }
+
+        }
+
+
+
+        //循环每一个li
+        for (let i = 0; i < aLi.length; i++) {
+            fn(aLi[i]);
+        }
+
+    </script>
+</body>
+
+</html>

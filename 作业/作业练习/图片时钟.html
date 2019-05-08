@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        section{
+            width: 1200px;margin: 100px auto 0;
+            background: #4798a9;
+            text-align: center;
+        }
+        ul{
+            list-style: none;margin: 0;padding: 0;
+            position: relative;
+            width: 976px;height: 170px;
+            margin: 0 auto;
+            overflow: hidden;
+            
+        }
+        li{
+            position: absolute;
+        }
+        P{
+            margin: 0;
+        }
+    </style>
+    <script>
+    window.onload=function(){
+        var obox=document.getElementById("box");
+       
+        var oP=document.getElementById("p1");
+        var aLi=obox.getElementsByTagName("li");
+        var aImg=obox.getElementsByTagName("img");
+        var oBody=document.body;
+        var text="";
+        var iSec=null;
+        var iSecTwo=null;
+        var iMin=null;
+        var iMinTwo=null;
+        var iH=null;
+        var iHTwo=null;
+        var iTime=new Date();
+        var iHours=iTime.getHours();
+        var iMinutes=iTime.getMinutes();
+        var iSeconds=iTime.getSeconds();
+        var str="";
+        str=timeTwo(iHours)+":"+timeTwo(iMinutes)+":"+timeTwo(iSeconds);
+        for(var i=0;i<16;i++){
+            text+="<li><img src='img/"+(isNaN(Number(str.charAt(i%8)))? "colon":Number(str.charAt(i%8)))+".JPG' /></li>";
+        }
+        fnTime();
+        obox.innerHTML=text;
+        for(var i=0;i<aLi.length;i++){
+            aLi[i].index=i;
+            aLi[i].style.left=122*(i%(aLi.length/2))+"px";
+            if(i>7)aLi[i].style.top="170px";
+        }
+        setInterval(function(){
+            fnTime();
+            doMove(aLi[(aLi.length/2)-1],timeMove,iSec);
+            doMove(aLi[aLi.length-1]);
+            if(iSec===0){
+                doMove(aLi[(aLi.length/2)-2],timeMove,iSecTwo);
+                doMove(aLi[aLi.length-2]);
+            }
+            if(iSec===0 && iSecTwo===0){
+                doMove(aLi[(aLi.length/2)-4],timeMove,iMin);
+                doMove(aLi[aLi.length-4]);
+            }
+            if( iMin===0 && iSec===0 && iSecTwo===0){
+                doMove(aLi[(aLi.length/2)-5],timeMove,iMinTwo);
+                doMove(aLi[aLi.length-5]);
+            }
+            if(iMin===0 && iMinTwo===0 && iSec===0 && iSecTwo===0){
+                doMove(aLi[(aLi.length/2)-7],timeMove,iH);
+                doMove(aLi[aLi.length-7]);
+            }
+            if(iH===0 && iMin===0 && iMinTwo===0 && iSec===0 && iSecTwo===0){
+                doMove(aLi[(aLi.length/2)-8],timeMove,iHTwo);
+                doMove(aLi[aLi.length-8]);
+            }
+           
+        },1000);
+        function doMove(obj,fn,time){
+            clearInterval(obj.timer);
+            obj.timer=setInterval(function(){
+                var speed=parseInt(getComputedStyle(obj).top)-20;
+                if(obj.index<aLi.length/2){
+                    if(speed<-170){
+                        speed=-170;
+                    }
+                }else{
+                    if(speed<0){
+                        speed=0;
+                    }
+                }
+                obj.style.top=speed+"px";
+                aImg[2].src="img/null.png";
+                aImg[5].src="img/null.png";
+                if(speed===-170 || speed===0){
+                    clearInterval(obj.timer);
+                    aImg[2].src="img/colon.JPG";
+                    aImg[5].src="img/colon.JPG";
+                    if(obj.index<aLi.length/2){
+                        obj.style.top="";
+                        fn&&fn(obj,time);
+                    }else{
+                        obj.style.top="170px";
+                    }
+                }
+            },50);
+        };
+        function fnTime(){
+            var iTime=new Date();
+            var iHours=iTime.getHours();
+            var iMinutes=iTime.getMinutes();
+            var iSeconds=iTime.getSeconds();
+            var str="";
+            str=timeTwo(iHours)+":"+timeTwo(iMinutes)+":"+timeTwo(iSeconds);
+            iSec=Number(str.charAt(str.length-1));
+            iSecTwo=Number(str.charAt(str.length-2));
+            iMin=Number(str.charAt(str.length-4));
+            iMinTwo=Number(str.charAt(str.length-5));
+            iH=Number(str.charAt(str.length-7));
+            iHTwo=Number(str.charAt(str.length-8));
+            oP.innerHTML=str;
+            for(var i=aLi.length/2;i<aImg.length;i++){
+                isNaN(Number(str.charAt(i%(aLi.length/2))))?aImg[i].src="img/colon.JPG": aImg[i].src="img/"+Number(str.charAt(i%(aLi.length/2)))+".JPG";
+            }
+        };
+        function timeTwo(n){
+            return n<10? "0"+n:""+n;
+        };
+        function timeMove(obj,time){
+            aImg[obj.index].src="img/"+time+".JPG";
+        }
+    };
+    </script>
+</head>
+<body>
+    <section>
+        <ul id="box"></ul>
+        <p id="p1"></p>
+    </section>
+</body>
+</html>

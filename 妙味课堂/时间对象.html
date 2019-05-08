@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1></h1>
+    <script>
+        function fn() {
+
+            var h1 = document.getElementsByTagName('h1')[0];
+            let timer = null;
+            timer = setInterval(() => {
+                let myTime = new Date();
+                let iYear = myTime.getFullYear();
+                let iMonth = myTime.getMonth();
+                let iDate = myTime.getDate();
+                let iWeek = myTime.getDay();
+                let iHours = myTime.getHours();
+                let iMin = myTime.getMinutes();
+                let iSec = myTime.getSeconds();
+                let str = '';
+
+                if (iWeek === 0) { iWeek = "星期日" }
+                if (iWeek === 0) { iWeek = "星期一" }
+                if (iWeek === 0) { iWeek = "星期二" }
+                if (iWeek === 0) { iWeek = "星期三" }
+                if (iWeek === 0) { iWeek = "星期四" }
+                if (iWeek === 0) { iWeek = "星期五" }
+                if (iWeek === 0) { iWeek = "星期六" }
+
+                str = iYear + '年' + iMonth + '月' + iDate + '日' + toTwo(iWeek) + '时' + toTwo(iHours) + ':' + toTwo(iMin) + ':' + toTwo(iSec);
+                console.log(str);
+                h1.innerHTML = str;
+
+            })
+
+        }
+        fn()
+
+        function toTwo(n) {
+            return n < 10 ? '0' + n : '' + n;
+        }
+
+
+    </script>
+</body>
+
+</html>

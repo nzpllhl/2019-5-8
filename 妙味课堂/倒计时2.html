@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .t1 {
+            width: 200px;
+            height: 20px;
+            border-radius: 10px;
+            text-align: center;
+            line-height: 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+    距离：<input type="text" class="t1" value="May 5,2019,16:50:0">
+    </br>
+    还剩：<input type="text" class="t1">
+    <input type="button" value="开始倒计时吧">
+    <p id="time"></p>
+    <script>
+
+        //时间戳 new Date().getTime 可以检测
+
+        let inp = document.getElementsByTagName('input');
+        console.log(inp);
+        let iNow = null;//现在
+        let iNew = null;//未来
+        let t = 0
+        var str = '';
+        let timer = null;
+
+        inp[2].onclick = function () {
+            timer = setInterval(() => {
+                let iNow = new Date();
+                let iNew = new Date(inp[0].value);//未来时间
+                let t = Math.floor((iNew - iNow) / 1000);
+                if (t >= 0) {
+                    let str = Math.floor(t / 8600) + '天' + Math.floor(t % 8600 / 3600) + '时' + Math.floor(t % 8600 % 3600 / 60) + '分' + t % 60 + '秒';
+                    inp[1].value = str;
+                } else {
+                    clearInterval(timer);
+                }
+
+            }, 1000)
+            console.log(123);
+
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>

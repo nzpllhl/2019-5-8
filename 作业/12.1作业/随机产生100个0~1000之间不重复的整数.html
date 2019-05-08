@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<title>随机产生100个0~1000之间不重复的整数</title>
+	<style type="text/css">
+		#box{
+			width: 600px;height: 400px;margin: 50px auto;border: 1px dotted blue; padding: 10px; background: #FFFACD;line-height: 25px;text-align: justify;
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function(){
+			var box=document.getElementById('box');
+			var str;
+			var arr=[];
+			var str1='';
+			
+			while(arr.length<100){
+				produce();
+				arr.push(str);
+				Deduplication(arr);
+			}
+			console.log(arr);
+			
+			console.log(arr.join(' '));
+			
+			box.innerHTML=arr.join(' ');
+			function produce(){
+				str=Math.round(Math.random()*1000);
+
+			}
+
+			function Deduplication(oarr){
+				for(var i=0;i<oarr.length;i++){
+					for(j=i+1;j<oarr.length;j++){
+						if(oarr[i]==oarr[j]){
+							oarr.splice(j,1);
+							j--;
+						}
+					}
+				}
+			}
+		}
+	</script>
+
+</head>
+<body>
+	<div id="box">
+		
+	</div>
+</body>
+</html>

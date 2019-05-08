@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        p {
+            margin: 0;
+        }
+
+        header {
+            width: 800px;
+            background: #acbfd2;
+            line-height: 30px;
+            font-weight: bold;
+            margin: 100px auto 0;
+        }
+
+        section {
+            width: 800px;
+            background: #acbfd2;
+            margin: auto;
+            height: 800px;
+            position: relative;
+        }
+
+        #shop {
+            padding: 0 10px;
+        }
+
+        .clearfix::after {
+            content: "";
+            display: block;
+            clear: both;
+        }
+
+        #shop ul {
+            width: 726px;
+            margin: auto;
+            position: relative;
+        }
+
+        img {
+            position: absolute;
+        }
+
+        #shop ul li {
+            width: 180px;
+            height: 360px;
+            background: black;
+            position: absolute;
+            border-right: 2px solid #8e7bd0;
+        }
+
+        #shop ul .li4 {
+            border: none;
+        }
+
+        .text {
+            width: 120px;
+        }
+
+        #shop ul li p {
+            font-size: 14px;
+            color: pink;
+        }
+
+        #shop ul li div {
+            color: #f50a45;
+            text-align: center;
+            font: 80px/260px "";
+        }
+
+        #shop ul li strong {
+            color: white;
+            line-height: 50px;
+        }
+
+        #shop ul li span {
+            color: green;
+        }
+
+        #Settlement {
+            width: 100%;
+            position: absolute;
+            top: 400px;
+        }
+
+        h2 {
+            width: 726px;
+            margin: 0 auto;
+            text-indent: 50px;
+            background: #cc57c4;
+        }
+
+        h2 strong {
+            margin-left: 100px;
+        }
+
+        #Settlement ul {
+            width: 726px;
+            margin: auto;
+            position: relative;
+        }
+
+        #Settlement li {
+            height: 60px;
+            font: 30px/60px "";
+            text-indent: 50px;
+        }
+
+        #Settlement li span {
+            margin-left: 150px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oShop = document.getElementById("shop");
+            var oUl = oShop.getElementsByTagName("ul")[0];
+            var aLi = oUl.getElementsByTagName("li");
+            var aBtn = oUl.getElementsByTagName("input");
+            var aP = oUl.getElementsByTagName("p");
+            var aImg = oUl.getElementsByTagName("img");
+            var oSettlement = document.getElementById("Settlement");
+            var oUl1 = oSettlement.getElementsByTagName("ul")[0];
+            var aLi1 = oUl1.getElementsByTagName("li");
+            var aName = oUl.getElementsByTagName("div");
+            var aMoney = oUl.getElementsByTagName("span");
+            var oMoney = oSettlement.getElementsByTagName("span")[0];
+            var a = 0;
+            var arrLeft = [];
+            var sText = "";
+            var arrName = [];
+            var arrMoney = [];
+            var arrmoney = [];
+            var Money = 0;
+            var num = 0;
+            for (var i = 0; i < aLi.length; i++) {
+                aLi[i].index = i;
+                aLi[i].style.left = i * 182 + "px";
+                aImg[i].style.left = i * 182 + "px";
+                arrName.push(aName[i].innerHTML);
+                arrMoney.push(aMoney[i].innerHTML);
+                arrLeft.push(parseInt(getComputedStyle(aLi[i]).left));
+            }
+            for (var i = 1; i < aBtn.length; i += 2) {
+                aBtn[i].index = a;
+                a++;
+            }
+            for (var i = 1; i < aBtn.length; i += 2) {
+                aBtn[i].indexText = i;
+                aBtn[i].onclick = function () {
+                    var iValue = "";
+                    var that = this;
+                    clearInterval(this.timeMove);
+                    iValue = aBtn[this.indexText - 1].value;
+                    createTime(iValue, that.index, that.indexText);
+                    this.timeMove = setInterval(function () {
+                        createTime(iValue, that.index, that.indexText);
+                    }, 1000);
+                }
+            }
+            function createTime(v, vv, vvv) {
+                var iTime = new Date();//未来时间
+                var nTime = new Date(v);//现在时间
+                var t = Math.floor((nTime - iTime) / 1000);//剩余的时间
+                //如果剩余时间===0的时候
+                if (t == 0) {
+                    aLi[vv].style.left = arrLeft[vv];
+                    shake(vv);
+                }
+                //如果剩余时间等于0的
+                if (t >= 0) {
+                    var nDate = Math.floor(t / 86400);//天
+                    var nHours = Math.floor(t % 86400 / 3600);//时
+                    var nMinutes = Math.floor(t % 86400 % 3600 / 60);//分
+                    var nSeconds = Math.floor(t % 60);//秒
+                    var str = "";
+                    str = "剩余" + nDate + "天" + nHours + "小时" + nMinutes + "分" + nSeconds + "秒";
+                    aP[vv].innerHTML = str;
+                } else {
+                    clearInterval(aBtn[vvv].timeMove);
+                }
+
+            }
+            function shake(x) {
+                var oLeft = parseInt(getComputedStyle(aLi[x]).left);
+                var arr = [];
+                var num = 0;
+                for (var i = 10; i > 0; i--) {
+                    arr.push(i, -i);
+                }
+                timer = null;
+                arr.push(0);
+                clearInterval(timer);
+                timer = setInterval(function () {
+                    aLi[x].style.left = oLeft + arr[num] + "px";
+                    num++;
+                    if (num == arr.length) {
+                        clearInterval(timer);
+                        topMove(x);
+                    }
+                }, 25)
+            }
+            function topMove(xx) {
+                timerTop = null;
+                clearInterval(timerTop);
+                timerTop = setInterval(function () {
+                    var oTop = parseInt(getComputedStyle(aLi[xx]).top);
+                    var speed = oTop + 18;
+                    var opt = getComputedStyle(aLi[xx]).opacity;
+                    aLi[xx].style.opacity = opt - 0.05;
+                    aLi[xx].style.top = speed + "px";
+                    if (speed > 360) {
+                        speed = 360;
+                    }
+                    if (speed === 360) {
+                        clearInterval(timerTop);
+                        createLi(xx);
+                    }
+
+                }, 50);
+            }
+            function createLi(xxx) {
+                sText += "<li><strong>" + arrName[xxx] + "</strong><span>" + arrMoney[xxx] + "</span></li>";
+                oUl1.innerHTML = sText;
+                var money = "";
+                for (var i = 1; i < arrMoney[xxx].length; i++) {
+                    money += arrMoney[xxx].charAt(i);
+                }
+                arrmoney.push(money);
+                num %= arrmoney.length;
+                Money += parseFloat(arrmoney[num]);
+                num++;
+                oMoney.innerHTML = "￥" + Money;
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <header>限购时间</header>
+    <section>
+        <article id="shop">
+            <ul class="clearfix">
+                <img src="img/已下架.png" alt="">
+                <img src="img/已下架.png" alt="">
+                <img src="img/已下架.png" alt="">
+                <img src="img/已下架.png" alt="">
+                <li>
+                    <input type="text" class="text" value="">
+                    <input type="button" value="确定">
+                    <p>剩余00天00小时00分00秒</p>
+                    <div>1号</div>
+                    <strong>抢购价: <span>￥1111</span></strong>
+                </li>
+                <li>
+                    <input type="text" class="text">
+                    <input type="button" value="确定">
+                    <p>剩余00天00小时00分00秒</p>
+                    <div>2号</div>
+                    <strong>抢购价: <span>￥2222</span></strong>
+                </li>
+                <li>
+                    <input type="text" class="text">
+                    <input type="button" value="确定">
+                    <p>剩余00天00小时00分00秒</p>
+                    <div>3号</div>
+                    <strong>抢购价: <span>￥3333</span></strong>
+                </li>
+                <li class="li4">
+                    <input type="text" class="text">
+                    <input type="button" value="确定">
+                    <p>剩余00天00小时00分00秒</p>
+                    <div>4号</div>
+                    <strong>抢购价: <span>￥4444</span></strong>
+                </li>
+            </ul>
+        </article>
+        <article id="Settlement">
+            <h2>
+                商品名称
+                <strong>价钱</strong>
+            </h2>
+            <ul>
+            </ul>
+            <h2>总价：<span></span></h2>
+        </article>
+    </section>
+</body>
+
+</html>

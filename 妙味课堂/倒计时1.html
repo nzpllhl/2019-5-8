@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1></h1>
+    <script>
+
+        //现在时间 (在变)
+        //未来时间 (不变)
+        //参数 数组形式 (2019,05,03,00,04);
+        //    字符串形式('May,5,2019,00,04')
+
+        //因为说出了的是毫秒 - 所以除以1000 让其变秒
+        /*
+        january 一月 简称 Jan
+
+February 二月 简称 Feb
+
+March 三月 简称 Mar
+
+April 四月 简称 Apr
+
+May 五月 简称 May
+
+June 六月 简称 Jun
+
+July 七月 简称 Jul
+
+August 八月 简称 Aug
+
+Septemper 九月 简称 Sep
+
+October 十月 简称 Oct
+
+November 十一 月 简称 Nov
+
+December 十二月 简称 Dec
+         let iNow = new Date();
+        let iNew = new Date(2019, 4, 5, 10, 10, 0);//未来时间
+        let t = Math.floor((iNew - iNow) / 1000);
+        一份钟60秒。
+        一个小时3600秒。 60* 60
+        一天86000秒     24*60 
+        天：Math.floor(t/8600)
+        时：Math.floor(t%8600/3600)
+        分：Math.floor(t%8600%3600/60)
+        t%60*/
+
+
+        let h1 = document.getElementsByTagName('h1')[0];
+        let timer = null;
+        timer = setInterval(() => {
+            let iNow = new Date();
+            let iNew = new Date(2019, 4, 5, 10, 10, 0);//未来时间
+            let t = Math.floor((iNew - iNow) / 1000);
+            let str = '距离出门还有' + Math.floor(t / 8600) + '天' + Math.floor(t % 8600 / 3600) + '时' + Math.floor(t % 8600 % 3600 / 60) + '分' + t % 60 + '秒';
+            console.log(str);
+            h1.innerText = str;
+        }, 1000)
+
+
+
+
+    </script>
+</body>
+
+</html>
